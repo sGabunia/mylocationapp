@@ -6,6 +6,13 @@ import useLocation from '../hooks/useLocation';
 const PersonLocation = () => {
   const [location, errorMessage] = useLocation();
 
+  if (errorMessage === 'denied') {
+    return (
+      <View style={styles.denied}>
+        <Text style={styles.deniedText}>Access is denied</Text>
+      </View>
+    );
+  }
   if (!location) {
     return <ActivityIndicator size="large" color="#000" />;
   }
@@ -51,5 +58,15 @@ const styles = StyleSheet.create({
   },
   warning: {
     color: 'red',
+  },
+  denied: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  deniedText: {
+    color: 'red',
+    fontSize: 20,
+    fontStyle: 'italic',
   },
 });

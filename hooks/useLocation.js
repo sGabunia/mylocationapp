@@ -4,15 +4,17 @@ import * as Location from 'expo-location';
 const useLocation = () => {
   const [location, setLocation] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
+
   const getLocation = async () => {
     const {status} = await Location.requestForegroundPermissionsAsync();
 
     if (status !== 'granted') {
-      setErrorMessage('you do not have permission');
+      setErrorMessage('denied');
       return;
     }
 
     const {coords} = await Location.getCurrentPositionAsync({});
+
     const [locationData] = await Location.reverseGeocodeAsync({
       latitude: coords.latitude,
       longitude: coords.longitude,
